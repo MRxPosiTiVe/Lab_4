@@ -1,46 +1,48 @@
-import java.util.*;
+import java.util.Scanner;
+
 import static java.lang.Math.*;
+
 
 public class exc5 {
     public static void main(String[] args) {
+        double x1, y1, x2, y2, x3, y3, y, x;
+        x1 = getNum();
+        y1 = getNum();
+        x2 = getNum();
+        y2 = getNum();
+        x3 = getNum();
+        y3 = getNum();
+        x = getProjectionX(x1, x2, y1, y2, x3, y3);
+        y = getProjectionY(x1, x2, y1, y2, x3, y3);
+        System.out.println(x);
+        System.out.println(y);
+    }
 
-        Scanner in = new Scanner(System.in);
-        int number;
-        System.out.println("Input number of ex, from 1 to 3");
-        number = in.nextInt();
-        if (number == 1) {
-            double x, y, z;
-            System.out.println("Input x");
-            x = in.nextDouble();
-            System.out.println("Input y");
-            y = in.nextDouble();
-            System.out.println("Input z");
-            z = in.nextDouble();
-            double a = ((sqrt(abs(x * x - 6))) - (sqrt(abs(y * y - 5))))
-                    / (1 + ((x * x) / (pow(y, 3) + 1)) + ((y * y) / (pow(x, 3) + 1)));
-            System.out.println("a= " + a);
-            double b = pow(x, 3) * (pow(atan(z), 3) + E);
-            System.out.println("b =" + b);
+    public static double getNum() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Введите переменную: ");
+        if (sc.hasNextDouble()) {
+            return sc.nextDouble();
+        } else {
+            return getNum();
         }
-        else if (number == 2) {
-            int a,b,c;
-            a = 2;  b = -1; c = 3;
-            double f,x;
-            System.out.println("Input x");
-            x = in.nextDouble();
-            f = pow((x+a),1 / 3)+(c*x*x)/(b+x);
-            System.out.println("f(x) = " + f);
-        }
-        else if (number == 3) {
-            double f,x;
-            System.out.println("Input x");
-            x = in.nextDouble();
-            f = pow(cos(pow(sin(pow(cos(1/(x*x)),2)),2)),2)
-                    -abs(pow(x,3)+pow(3,x));
-            System.out.println("f(x) = " + f);
-        }
-        else {
-            System.out.println("Input number from 1 to 3, u have mistaken");
-        }
+    }
+
+    public static double getProjectionY(double x1, double x2, double y1, double y2, double x3, double y3) {
+        double abx = x1 - x2;
+        double aby = y1 - y2;
+        double dacab = (x3 - x2) * abx + (y3 - y2) * aby;
+        double dab = pow(abx, 2) + pow(aby, 2);
+        double t = dacab / dab;
+        return y2 + aby * t;
+    }
+
+    public static double getProjectionX(double x1, double x2, double y1, double y2, double x3, double y3) {
+        double abx = x1 - x2;
+        double aby = y1 - y2;
+        double dacab = (x3 - x2) * abx + (y3 - y2) * aby;
+        double dab = pow(abx, 2) + pow(aby, 2);
+        double t = dacab / dab;
+        return x2 + abx * t;
     }
 }
